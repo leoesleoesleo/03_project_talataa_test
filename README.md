@@ -1,113 +1,145 @@
 #
-# Iniciativa BotsiTech (Backend)
+# Test Talataa (Backend)
 Por: Leonardo Patiño Rodriguez
 ## &nbsp; [![pyVersion37](https://img.shields.io/badge/python-3.7.6-blue.svg)](https://www.python.org/download/releases/3.7/)
 
-## Modelo de Datos
-Modelo: https://dbdiagram.io/d/62a4d75a9921fe2a96e58872
+## Diseño modelado de datos
+Modelo: https://dbdiagram.io/d/6383a24fc9abfc61117575bf
 <p align="justify">
-Dado que centralizar todas las necesidades de los clientes en un solo modelo de datos puede ser muy complejo, se construye primero un modelo de datos base llamado core en donde contenga la funcionalidad simple y estándar (de fábrica) en donde se pueda instanciar y posteriormente escalar añadiendo nuevas tablas y relaciones de acuerdo a las necesidades puntuales de cada cliente.
+Modelo de datos, utilizando el ORM que proporciona Django, tomando como base la tabla auth_user.
 </p>
-<p align="justify">
-Este modelo de datos tendrá dos momentos, el momento 1 es el diseño de las tablas del core en un diagrama lógico, tendrán tablas y campos estándar de cualquier tipo de negocio, con el fin de que se pueda reutilizar para cada tipo de cliente que tenga su lógica de negocio. El momento 2 será crear también un modelo de datos lógico en donde se reutilice el modelo core y se agreguen nuevas tablas y relaciones de acuerdo a la lógica de negocio del cliente.
-</p>
-<p align="justify">
-Como propuesta este core va a estar centralizado en donde sea el mismo para todos los clientes.
-</p>
-<p align="justify">
-Las tablas serán desacopladas y solo vivirán en el ecosistema de su naturaleza, ejemplo tabla intents vivirá en el servicio experto.
-</p>
-
-## Modelo NLP y Experto
 <div align="center">
-	<img height="700" src="https://leoesleoesleo.github.io/imagenes/botsi_flujo.PNG" alt="PokeAPI">
-</div>  
+	<img height="500" src="https://leoesleoesleo.github.io/imagenes/diagrama_datos_talataa.PNG" alt="Talataa">
+</div>
 
-Artículo NPL
-https://chatbotsmagazine.com/contextual-chat-bots-with-tensorflow-4391749d0077
+## API REST con sus endpoints.
 
-
-## Documentación Apiary
-Archivo: apiary.apib
-https://app.apiary.io/simulador/editor
-
-## API Rest
-
-[POST] https://127.0.0.1:8000/botsitech/chat/bot
+[POST] https://127.0.0.1:8000/orders/request
 
 - Request
 	```
 	{
-		"customer_id": 1,
-		"phone": "3004971591",
-		"sentence": "hola"
+		"email": "test@gmail.com",
+		"time_zone": 8,
+		"direction": "cr 1a 11 11",
+		"order": {
+			"test_order":"test_order" 
+		}
 	}
 	```
 - Response
 	```
 	{
-	  "model_tag": "saludo",
-	  "chat_rn": "[NO]",
-	  "response_inventory": [],
-	  "response_nlp": "Hola ¿qué puedo hacer por ti?",
-	  "response_expert": "",
-	  "response_step": [
-	    [
-	      "Menu del dia",
-	      "Productos",
-	      "Combos"
-	    ]
-	  ],
-	  "respose_order": ""
+		"response": "success",
+		"data": {
+			"email": "test@gmail.com",
+			"deliver_date": "2022-11-28T18:26:25.613925",
+			"date_order": "2022-11-28T10:26:25.960909",
+			"dispatcher": 3
+		}
 	}
 	```
-	
-- Conociendo el response
 
 
-<strong>- model_tag:</strong> <p align="justify">El  tag es la predicción del modelo de machine learning que ayuda a conocer la intención del usuario al escribir una sentence, el programa tomará un patterns aleatorio para responder.</p>
+[GET] https://127.0.0.1:8000/orders/request
 
-	
+- Request
+	```
 	{
-		"tag": "saludo",
-		"patterns": [
-			"Hola",
-			"Oye",
-			"Cómo estás",
-			"¿Hay alguien ahí?",
-			"Hola",
-			"Buenos días"
+		"dispatcher_id": 1,
+		"date_order": "2022-11-27"
+	}
+	```
+- Response
+	```
+	{
+		"date_order": "2022-11-27",
+		"status": [
+			0,
+			0,
+			0,
+			0
 		],
-		"responses": [
-			"Hola gracias por visitar",
-			"Hola ¿qué puedo hacer por ti?",
-			"Hola ¿cómo puedo ayudar?"
+		"orders": [
+			{
+				"test_order": "test_order"
+			},
+			{
+				"test_order": "test_order"
+			},
+			{
+				"test_order": "test_order"
+			},
+			{
+				"test_order": "test_order"
+			}
 		]
 	}
-	
+	```
+- Conociendo el response
 
-<strong>- chat_rn:</strong> Regla de negocio para el front, es la comunicación entre el backend y el forntend.
+<p align="justify">
+	Status 0 : Pedido PENDING Pendiente
+	Status 1 : Pedido DELIVERED Entregado
+</p>
 
-    |  RN  | DESCRIPTION 	
-    
-    | [NO] | RN_COMMON 		
-    | [EL] | RN_PRODUCT_DELETE 	
-    | [OP] | RN_OPTIONS_QUANTITY 	
-    | [AG] | RN_PRODUCT_ADD 		
-    | [OB] | RN_OBSERVATION 		
-    | [DE] | RN_DELETE_LIST_PRODUCT 	
-    | [EP] | RN_SALE_ORDER 	
-    | [EN] | RN_CANCELED_ORDER 	
 
-<strong>- response_inventory:</strong> Respuesta de todo lo relacionado con productos o servicios.
+## Arquitectura de aplicación en Python
+<p align="justify">
+<strong>Arquitectura Hexagonal</strong>
+</p>
+<p align="justify">
+El principal motivo para separar nuestra aplicación en dos capas (Customer, Orders ) es que cuente con su propia responsabilidad. De esta manera consigue desacoplar capas de nuestra aplicación permitiendo que evolucionen de manera aislada. Además, tener el sistema separado por responsabilidades nos facilitará:
+</p>
 
-<strong>- response_nlp:</strong> Patterns propuesto por el modelo de machine learning.
+- La reutilización y mantenibilidad
+- Pruebas unitarias
+- Más tolerantes a cambios (Responsabilidad única)
+- Desacoplamiento
 
-<strong>- response_expert:</strong> Respuesta de todo lo relacionado con Confirmación de pedido, Enviar pedido, Eliminar productos y agregar Observación.
+## Uso de buenas prácticas.
+<p align="justify">
+<strong>Implementación de principios solid</strong>
+</p>
 
-<strong>- response_step:</strong> Opciones de recomendación de la tabla expert_steps.
+- Principio de Responsabilidad Única
+- Principio de Inversión de Dependencias
 
-<strong>- respose_order:</strong> Información del pedido solicitado por el usuario, este es el que se guarda en la tabla customer_orders.
+<p align="justify">
+<strong>Flake8 - Isort</strong>
+</p>
+
+<p align="justify">
+Implementación de flake8 e Isort para estandarización y limpieza de código. 
+</p>
+
+## Patrones de diseño utilizados.
+<p align="justify">
+<strong>3 Capas</strong>
+</p>
+<p align="justify">
+Un patrón común como la arquitectura de 3 niveles, donde la aplicación se divide en capa de presentación, capa lógica y capa de datos.
+</p>
+
+## Despliegue de proyecto en cualquier tipo de nube.
+<p align="justify">
+<strong>AWS</strong>
+</p>
+
+- RDS - Mysql: 
+- EC2 - Linux AWS
+
+<p align="justify">
+Ip pública: http://18.213.118.152:8000/admin/ 
+</p>
+<p align="justify">
+Se implementa una arquitectura cloud básica en la capa gratuita de AWS en donde los servicios se encuentran en una misma región en una VPC estándar, el RDS tiene acceso al público y el EC2 solo permisos por IP. para poder ver la app será necesario compartir la ip pública de la máquina donde se quiere ver la aplicación.
+</p> 
+
+## Documentación Apiary
+Archivo: apiary.apib
+https://app.apiary.io/simulador/editor
+
 
 
 ## Manual de instalación
@@ -116,26 +148,26 @@ https://app.apiary.io/simulador/editor
 
 - Clonar repositorio
 	```
-	git clone https://github.com/leoesleoesleo/03_project_botsitech.git
+	git clone https://github.com/leoesleoesleo/03_project_talataa_test.git
 	```
 - Crear entorno virtual
 
     Ejemplo anaconda
 	```
-	conda create -n env_botsi python=3.7
+	conda create -n env_project_talataa python=3.7
 	```
 	```
-	conda activate env_botsi
+	conda activate env_project_talataa
 	```
-    Ejemplo virtualenv
+    Ejemplo virtualenv Linux
     ```
 	pip install virtualenv
 	```
 	```
-	python3 -m venv env_botsi
+	python3 -m venv env_project_talataa
 	```
 	```
-	\Scripts\activate
+	source env_project_talataa/bin/activate
 	```
 	
 
@@ -161,30 +193,10 @@ https://app.apiary.io/simulador/editor
     
 - Ejecutar Fixtures, en la altura del archivo manage.py
     ```
-   python manage.py loaddata fixtures/*.json
-    ```
-
-- Si no funciona el comando anterior hacerlo uno por uno.
-    ```
    python manage.py loaddata fixtures/data_customer_customer.json
-   python manage.py loaddata fixtures/data_consumer_consumer.json
-   python manage.py loaddata fixtures/data_customer_coverage.json
-   python manage.py loaddata fixtures/data_customer_group.json
-   python manage.py loaddata fixtures/data_expert_category.json
-   python manage.py loaddata fixtures/data_expert_inventory.json
-   python manage.py loaddata fixtures/data_expert_step.json
-   python manage.py loaddata fixtures/data_nlp_intentions.json
-    ```
-
-- Entrenar Modelo (Opcional, ya está entrenado)
-    ```
-   python manage.py shell_plus
-    ```
-    ```
-   from integration.nlp.services import train_nlp
-    ```
-    ```
-   train_nlp(customer_id="1")
+   python manage.py loaddata fixtures/data_customer_direction.json
+   python manage.py loaddata fixtures/data_orders_dispatcher.json
+   python manage.py loaddata fixtures/data_orders_orders.json
     ```
 
 - Ejecutar pruebas unitarias (Opcional)
@@ -202,23 +214,12 @@ https://app.apiary.io/simulador/editor
    python manage.py runserver
     ```
 
-- Administrar Usuarios (Opcional)
+- Administrar Usuarios desde el panel admin Django(Opcional)
     ```
    http://127.0.0.1:8000/admin/
     ```
 
 -  Iniciar programa en el navegador con APIView
     ```
-   https://127.0.0.1:8000/botsitech/chat/bot
-    ```
-
-- Levantar ChatBot desde el Shell (Opcional)
-    ```
-   python manage.py shell_plus
-    ```
-    ```
-   from integration.chat.services import main_chat
-    ```
-    ```
-   main_chat(customer_id=1,phone="3004971594", sentence="hola", debug=True)
+   https://127.0.0.1:8000/orders/request
     ```
