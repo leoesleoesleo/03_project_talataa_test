@@ -2,56 +2,27 @@ FORMAT: 1A
 HOST: https://polls.apiblueprint.org/
 https://app.apiary.io/simulador/editor
 
-# Botsi Tech (Internal Services)
+# Test Talataa (Internal Services)
 
-Virtual agent creation services.
+Imaginemos que un cliente solicita el envío de un pedido mediante una llamada a una API REST para almacenarlo en la base de datos. 
 
-+ chat_rn
-    | rn | Description |
-    | --- | --- |
-    | [NO] | RN_COMMON |
-    | [EL] | RN_PRODUCT_DELETE |
-    | [OP] | RN_OPTIONS_QUANTITY |
-    | [AG] | RN_PRODUCT_ADD |
-    | [OB] | RN_OBSERVATION |
-    | [DE] | RN_DELETE_LIST_PRODUCT |
-    | [EP] | RN_SALE_ORDER |
-    | [EN] | RN_CANCELED_ORDER |
 
-# Group Chat
+# Group Services
 
-## Chat [/botsitech/chat/bot]
+## Token [/api/token/]
 
-+ Attributes (object)
-    + customer_id (number, required) - Customer id
-    + phone (string, required) - phone Consumer
-    + sentence (string, required) - Sentence Consumer
-
-### Bot [POST]
-
-Chat bot
+### Token [POST]
 
 + Request (application/json)
 
     + Headers
-        Authorization: Token: {{token}}
+        Content-Type: application/json
 
 + Response 200 (application/json)
 
         {
-              "model_tag": "saludo",
-              "chat_rn": "[NO]",
-              "response_inventory": [],
-              "response_nlp": "Hola ¿qué puedo hacer por ti?",
-              "response_expert": "",
-              "response_step": [
-                [
-                  "Menu del dia",
-                  "Productos",
-                  "Combos"
-                ]
-              ],
-              "respose_order": ""
+              "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY2OTczOTI4NywiaWF0IjoxNjY5NjUyODg3LCJqdGkiOiI5ZjZlZmU4YWI5Mzk0M2JmOThiMzA2YmYwZTIwNDZiNSIsInVzZXJfaWQiOjF9.4z3CNnTo_BiHR35Y0hx6eiZtsl-aL-ZtZeSMLgI96aw",
+              "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY5NzM5Mjg3LCJpYXQiOjE2Njk2NTI4ODcsImp0aSI6Ijc5NjM3MThlOWEzZjQyNTdiMWRiN2Y0NDJlN2E5OGQ2IiwidXNlcl9pZCI6MX0.HSf5GPDAf45aUCp-QUr9ioI3Q9-7QW_BuNpmTZTHZTM"
         }
         
 
@@ -61,3 +32,40 @@ Chat bot
             "error": "service problems"
         }
 
+## Orders [/orders/request]
+
+### Orders [GET]
+
+Orders
+
++ Attributes (object)
+    + email (string, required) - Customer id
+    + time_zone (number, required) - phone Consumer
+    + direction (string, required) - Sentence Consumer
+    + order (string, required) - Sentence Consumer
+    
++ Request (application/json)
+
+    + Headers
+        Content-Type: application/json
+        Authorization: Bearer {Token}
+
++ Response 201 (application/json)
+
+        {
+              "response": "",
+              "data": {
+                "email":"test@gmail.com",
+                "deliver_date": "2022-11-28T19:19:24.495341",
+                "date_order": "2022-11-28T11:19:24.852605",
+                "dispatcher": 3
+              }
+        }
+        
+
++ Response 400 (application/json)
+
+        {
+            "error": "service problems"
+        }
+        
