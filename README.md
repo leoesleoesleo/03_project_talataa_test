@@ -14,6 +14,16 @@ Modelo de datos, utilizando el ORM que proporciona Django, tomando como base la 
 
 ## API REST con sus endpoints.
 
+[POST] http://localhost:8000/api/token/
+
+- Response
+	```
+	{
+		"refresh":
+		"access":
+	}
+	```
+
 [POST] https://127.0.0.1:8000/orders/request
 
 - Request
