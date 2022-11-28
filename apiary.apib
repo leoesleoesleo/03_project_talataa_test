@@ -1,0 +1,71 @@
+FORMAT: 1A
+HOST: https://polls.apiblueprint.org/
+https://app.apiary.io/simulador/editor
+
+# Test Talataa (Internal Services)
+
+Imaginemos que un cliente solicita el envío de un pedido mediante una llamada a una API REST para almacenarlo en la base de datos. 
+
+
+# Group Services
+
+## Token [/api/token/]
+
+### Token [POST]
+
++ Request (application/json)
+
+    + Headers
+        Content-Type: application/json
+
++ Response 200 (application/json)
+
+        {
+              "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY2OTczOTI4NywiaWF0IjoxNjY5NjUyODg3LCJqdGkiOiI5ZjZlZmU4YWI5Mzk0M2JmOThiMzA2YmYwZTIwNDZiNSIsInVzZXJfaWQiOjF9.4z3CNnTo_BiHR35Y0hx6eiZtsl-aL-ZtZeSMLgI96aw",
+              "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY5NzM5Mjg3LCJpYXQiOjE2Njk2NTI4ODcsImp0aSI6Ijc5NjM3MThlOWEzZjQyNTdiMWRiN2Y0NDJlN2E5OGQ2IiwidXNlcl9pZCI6MX0.HSf5GPDAf45aUCp-QUr9ioI3Q9-7QW_BuNpmTZTHZTM"
+        }
+        
+
++ Response 400 (application/json)
+
+        {
+            "error": "service problems"
+        }
+
+## Orders [/orders/request]
+
+### Orders [GET]
+
+Orders
+
++ Attributes (object)
+    + email (string, required) - Customer id
+    + time_zone (number, required) - phone Consumer
+    + direction (string, required) - Sentence Consumer
+    + order (string, required) - Sentence Consumer
+    
++ Request (application/json)
+
+    + Headers
+        Content-Type: application/json
+        Authorization: Bearer {Token}
+
++ Response 201 (application/json)
+
+        {
+              "response": "",
+              "data": {
+                "email":"test@gmail.com",
+                "deliver_date": "2022-11-28T19:19:24.495341",
+                "date_order": "2022-11-28T11:19:24.852605",
+                "dispatcher": 3
+              }
+        }
+        
+
++ Response 400 (application/json)
+
+        {
+            "error": "service problems"
+        }
+        

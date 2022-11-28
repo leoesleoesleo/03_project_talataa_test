@@ -1,0 +1,52 @@
+[{
+		"model": "customer.Customer",
+		"fields": {
+			"id": 1,
+			"external_id": 1,
+			"create_at": "2022-08-26 14:01",
+			"update_at": "2022-08-26 14:01",
+			"user": 1,
+			"phone": "300",
+			"email": "test@gmail.com",
+			"extra_data": {
+				"location": "test",
+				"office_hours": "test"
+			},			
+			"is_active": true
+		}
+	},
+	{
+		"model": "customer.Customer",
+		"fields": {
+			"id": 2,
+			"external_id": 2,
+			"create_at": "2022-08-26 14:01",
+			"update_at": "2022-08-26 14:01",
+			"user": 2,
+			"phone": "900",
+			"email": "test2@gmail.com",
+			"extra_data": {
+				"location": "test2",
+				"office_hours": "test2"
+			},			
+			"is_active": true
+		}
+	},
+	{
+		"model": "customer.Customer",
+		"fields": {
+			"id": 3,
+			"external_id": 3,
+			"create_at": "2022-08-26 14:01",
+			"update_at": "2022-08-26 14:01",
+			"user": 3,
+			"phone": "800",
+			"email": "test3@gmail.com",
+			"extra_data": {
+				"location": "test3",
+				"office_hours": "test3"
+			},			
+			"is_active": true
+		}
+	}
+]

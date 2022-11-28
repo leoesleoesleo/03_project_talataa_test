@@ -1,0 +1,44 @@
+[{
+		"model": "orders.Dispatcher",
+		"fields": {
+			"id": 1,
+			"user": 4,
+			"create_at": "2022-08-26 14:01",
+			"update_at": "2022-08-26 14:01",
+			"extra_data": {
+				"extra_data1": "test",
+				"extra_data2": "test"
+			},			
+			"is_active": true
+		}
+	},
+	{
+		"model": "orders.Dispatcher",
+		"fields": {
+			"id": 2,
+			"user": 5,
+			"create_at": "2022-08-26 14:01",
+			"update_at": "2022-08-26 14:01",
+			"extra_data": {
+				"extra_data1": "test",
+				"extra_data2": "test"
+			},			
+			"is_active": true
+		}
+	},
+	{
+		"model": "orders.Dispatcher",
+		"fields": {
+			"id": 3,
+			"user": 6,
+			"create_at": "2022-08-26 14:01",
+			"update_at": "2022-08-26 14:01",
+			"extra_data": {
+				"extra_data1": "test",
+				"extra_data2": "test"
+			},			
+			"is_active": true
+		}
+	}
+	
+]
