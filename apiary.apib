@@ -1,0 +1,63 @@
+FORMAT: 1A
+HOST: https://polls.apiblueprint.org/
+https://app.apiary.io/simulador/editor
+
+# Botsi Tech (Internal Services)
+
+Virtual agent creation services.
+
++ chat_rn
+    | rn | Description |
+    | --- | --- |
+    | [NO] | RN_COMMON |
+    | [EL] | RN_PRODUCT_DELETE |
+    | [OP] | RN_OPTIONS_QUANTITY |
+    | [AG] | RN_PRODUCT_ADD |
+    | [OB] | RN_OBSERVATION |
+    | [DE] | RN_DELETE_LIST_PRODUCT |
+    | [EP] | RN_SALE_ORDER |
+    | [EN] | RN_CANCELED_ORDER |
+
+# Group Chat
+
+## Chat [/botsitech/chat/bot]
+
++ Attributes (object)
+    + customer_id (number, required) - Customer id
+    + phone (string, required) - phone Consumer
+    + sentence (string, required) - Sentence Consumer
+
+### Bot [POST]
+
+Chat bot
+
++ Request (application/json)
+
+    + Headers
+        Authorization: Token: {{token}}
+
++ Response 200 (application/json)
+
+        {
+              "model_tag": "saludo",
+              "chat_rn": "[NO]",
+              "response_inventory": [],
+              "response_nlp": "Hola ¿qué puedo hacer por ti?",
+              "response_expert": "",
+              "response_step": [
+                [
+                  "Menu del dia",
+                  "Productos",
+                  "Combos"
+                ]
+              ],
+              "respose_order": ""
+        }
+        
+
++ Response 400 (application/json)
+
+        {
+            "error": "service problems"
+        }
+

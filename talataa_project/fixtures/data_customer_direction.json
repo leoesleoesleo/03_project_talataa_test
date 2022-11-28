@@ -1,0 +1,61 @@
+[{
+		"model": "customer.DirectionCustomer",
+		"fields": {
+			"id": 1,
+			"customer": 1,
+			"create_at": "2022-08-26 14:01",
+			"update_at": "2022-08-26 14:01",
+			"direction": "cr 1a 11 11"
+		}
+	},
+	{
+		"model": "customer.DirectionCustomer",
+		"fields": {
+			"id": 2,
+			"customer": 1,
+			"create_at": "2022-08-26 14:01",
+			"update_at": "2022-08-26 14:01",
+			"direction": "cr 2a 22 22"
+		}
+	},
+	{
+		"model": "customer.DirectionCustomer",
+		"fields": {
+			"id": 3,
+			"customer": 2,
+			"create_at": "2022-08-26 14:01",
+			"update_at": "2022-08-26 14:01",
+			"direction": "cr 3a 33 33"
+		}
+	},
+	{
+		"model": "customer.DirectionCustomer",
+		"fields": {
+			"id": 4,
+			"customer": 2,
+			"create_at": "2022-08-26 14:01",
+			"update_at": "2022-08-26 14:01",
+			"direction": "cr 5a 55 55"
+		}
+	},
+	{
+		"model": "customer.DirectionCustomer",
+		"fields": {
+			"id": 5,
+			"customer": 3,
+			"create_at": "2022-08-26 14:01",
+			"update_at": "2022-08-26 14:01",
+			"direction": "cr 6a 66 66"
+		}
+	},
+	{
+		"model": "customer.DirectionCustomer",
+		"fields": {
+			"id": 6,
+			"customer": 3,
+			"create_at": "2022-08-26 14:01",
+			"update_at": "2022-08-26 14:01",
+			"direction": "cr 7a 77 77"
+		}
+	}
+]
